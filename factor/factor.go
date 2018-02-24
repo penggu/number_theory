@@ -3,10 +3,8 @@ package main
 import "fmt"
 import "os"
 import "strconv"
-//import "math/big"
 
 func main() {
-
   var n int
   nargs := len(os.Args)
   if nargs < 2 {
@@ -17,12 +15,6 @@ func main() {
   if n < 2 {
     error(2, "n must be greater than or equal to 2")
   }
-
-  /*var s, sep string
-  for i := 1; i < len(os.Args); i++ {
-    s += sep + os.Args[i]
-    sep = " "
-  }*/
 
   if IsPrime(n) {
     fmt.Printf("%d is a prime number\n", n)
@@ -40,13 +32,13 @@ func IsPrime(n int) bool {
   if n < 2 {
     return false
   }
-  return n == firstFactor(n)
+  return n == minimumPrimeFactor(n)
 }
 
 func Factor(n int) string {
   var s, sep string
   for ; n > 1; {
-    f := firstFactor(n)
+    f := minimumPrimeFactor(n)
     n /= f
     s += sep + strconv.Itoa(f)
     sep = " * "
@@ -59,7 +51,7 @@ func nthOddNumber(n int) int {
 }
 
 // n must be greater than or equal to 2
-func firstFactor(n int) int {
+func minimumPrimeFactor(n int) int {
   if n % 2 == 0 {
     return 2
   }
@@ -67,7 +59,7 @@ func firstFactor(n int) int {
   n1, m1 := n, n
   i := 1
 
-  odd := nthOddNumber(i)
+  odd := nthOddNumber(i) // a sequence of 3, 5, 7, 9, 11 ...
   q := n / odd
   r := n - odd * q
   //fmt.Printf("%d = %d * %d + %d\n", n1, odd, q, r)
