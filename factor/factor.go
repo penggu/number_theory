@@ -24,12 +24,23 @@ func main() {
     sep = " "
   }*/
 
-  fmt.Printf("%d = %s\n", n, Factor(n))
+  if IsPrime(n) {
+    fmt.Printf("%d is a prime number\n", n)
+  } else {
+    fmt.Printf("%d = %s\n", n, Factor(n))
+  }
 }
 
 func error(errno int, msg string) {
   fmt.Fprintf(os.Stderr, "E%04d: %s\n", errno, msg)
   os.Exit(errno)
+}
+
+func IsPrime(n int) bool {
+  if n < 2 {
+    return false
+  }
+  return n == firstFactor(n)
 }
 
 func Factor(n int) string {
